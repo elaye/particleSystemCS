@@ -20,7 +20,9 @@ void particleManager::setup(const int _n){
 	attractor = ofPoint(0, 0, 0);
 
 	computeShader.setupShaderFromFile(GL_COMPUTE_SHADER, "shaders/particles_comp.glsl");
-	computeShader.linkProgram();	
+	computeShader.linkProgram();
+
+	renderShader.load("shaders/render_vert.glsl", "shaders/render_frag.glsl");	
 }
 
 void particleManager::initParticles(){
@@ -62,7 +64,9 @@ void particleManager::updateAttractor(){
 void particleManager::draw(){
 	ofEnableBlendMode(OF_BLENDMODE_ADD);
 		ofSetColor(color);
-		vbo.draw(GL_POINTS, 0, n);
+		renderShader.begin();
+			vbo.draw(GL_POINTS, 0, n);
+		renderShader.end();
 	ofDisableBlendMode();
 
 	if(bShowAttractor){

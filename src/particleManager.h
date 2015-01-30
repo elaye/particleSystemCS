@@ -14,7 +14,7 @@ class particleManager{
 
 	int n;
 
-	ofShader computeShader;
+	ofShader computeShader, renderShader;
 
 	vector<Particle> particles;
 	ofBufferObject particlesBuffer;
